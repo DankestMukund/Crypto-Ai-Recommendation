@@ -42,38 +42,7 @@ struct CoinList: Codable , Identifiable {
 class CoinDataService {
     
     
-//    func fetchCoins(completion: @escaping (Result<[CoinList], Error>) -> Void) {
-//        
-//        let urlString = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr&order=market_cap_desc&per_page=250&page=1&precision=2"
-//
-//        guard let url = URL(string: urlString) else {
-//            print("❌ Invalid URL")
-//            return
-//        }
-//        
-//        URLSession.shared.dataTask(with: url) { data, response, error in
-//            
-//            if let error = error {
-//                print("❌ Network error: \(error.localizedDescription)")
-//                return
-//            }
-//            
-//            guard let data = data else {
-//                print("❌ No data returned")
-//                return
-//            }
-//            
-//            do {
-//                let coins = try JSONDecoder().decode([CoinList].self, from: data)
-//                
-//                DispatchQueue.main.async {
-//                    completion(.success(coins))
-//                }
-//            } catch {
-//                print("❌ Decoding error: \(error)")
-//            }
-//        }.resume()
-//    }
+    
     
     func fetchCoins() async throws -> [CoinList]
     {
@@ -84,65 +53,12 @@ class CoinDataService {
         let (data,response) = try await URLSession.shared.data(from: url)
         let coins = try JSONDecoder().decode([CoinList].self, from: data)
         return coins
-       
+        
     }
     
     struct PriceResponse: Codable {
         let inr: Double
     }
-   
     
-//    func fetchPrice(coin: String, completion: @escaping (Result<PriceResponse, Error>) -> Void) {
-//        
-//        let urlString = "https://api.coingecko.com/api/v3/simple/price?ids=\(coin)&vs_currencies=inr"
-//        
-//        guard let url = URL(string: urlString) else {
-//            print("Invalid URL")
-//            return
-//        }
-//        
-//        URLSession.shared.dataTask(with: url) { data, response, error in
-//           
-//            if let error = error {
-//                print("DEBUG: Failed with error \(error.localizedDescription) ")
-//                return
-//            }
-//            
-//            guard let httpResponse = response as? HTTPURLResponse else {
-//                print("No HTTP response")
-//                return
-//            }
-//            
-//            
-//            guard let data = data else {
-//                print("No data")
-//                return
-//            }
-//            
-//            do {
-//                
-//                let fullResponse = try JSONDecoder().decode([String: PriceResponse].self, from: data)
-//                
-//                if let coinData = fullResponse[coin] {
-//                    DispatchQueue.main.async {
-//                      
-//                        
-//                        //self.coin = coin.capitalized
-//                        //self.price = "₹\(coinData.inr)"
-//                        
-////                        print("Price in service: \(coinData)")
-//                        completion(.success(coinData))
-//                    }
-//                } else {
-//                    print("Coin not found in response")
-//                }
-//            } catch {
-//                print("Failed to decode: \(error)")
-//            }
-//        }.resume()
-//    }
+    
 }
-
-
-    
-   
